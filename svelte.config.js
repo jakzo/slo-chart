@@ -15,7 +15,7 @@ const config = {
       default: true,
     },
     paths: {
-      base: isDev ? "" : "/your-repo-name",
+      base: isDev ? "" : "/slo-chart",
     },
     appDir: "internal",
   },
