@@ -1,6 +1,8 @@
 import adapter from "@sveltejs/adapter-static";
 import preprocess from "svelte-preprocess";
 
+const isDev = process.env.NODE_ENV === "development";
+
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
   // Consult https://github.com/sveltejs/svelte-preprocess
@@ -12,6 +14,10 @@ const config = {
     prerender: {
       default: true,
     },
+    paths: {
+      base: isDev ? "" : "/your-repo-name",
+    },
+    appDir: "internal",
   },
 };
 
