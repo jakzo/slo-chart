@@ -1,5 +1,7 @@
 Example of an accessible chart.
 
+[Demo](https://jakzo.github.io/slo-chart/)
+
 ## Why is this chart better than other charts?
 
 - Individual days can be selected and read by screen readers
