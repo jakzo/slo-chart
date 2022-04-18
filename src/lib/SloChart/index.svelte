@@ -229,7 +229,7 @@ Bad events: {bad}"
         aria-roledescription="line"
       >
         <path
-          class="fill-[none] stroke-[#123] [stroke-linecap:round] stroke-[4]"
+          class="fill-[none] stroke-slate-800 dark:stroke-slate-200 [stroke-linecap:round] stroke-[4]"
           d="M{data
             .map(
               ([, , , budget], i) =>
@@ -252,7 +252,7 @@ Bad events: {bad}"
         {@const x = getIndexX(data.length, i)}
         {@const y = getValueY(minBudgetTick, maxBudgetTick, budget)}
         <div
-          class="absolute bg-slate-900 rounded-full border-white border-2 w-[12px] h-[12px] translate-x-[-50%] translate-y-[-50%] pointer-events-none animation-chart-load origin-center"
+          class="absolute bg-slate-800 dark:bg-slate-200 rounded-full border-white dark:border-slate-800 border-2 w-[12px] h-[12px] translate-x-[-50%] translate-y-[-50%] pointer-events-none animation-chart-load origin-center"
           style:left="{x}%"
           style:top="{y}%"
         />

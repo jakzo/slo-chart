@@ -11,6 +11,8 @@ import {
 import { increaseDate } from "./util";
 import { calculateErrorBudget } from "./lib/SloChart/utils";
 
+const DAY_MS = 1000 * 60 * 60 * 24;
+
 const seededUuid = (seed: string): string => {
   const rand = seedrandom(seed);
   const ALPHA = "0123456789abcdef";
@@ -34,8 +36,6 @@ const generateMockSlo = (seed: string) => {
 
   const DAY_RATES = [400, 1000, 1100, 1100, 1100, 1000, 400];
 
-  const seededRandom = seedrandom(seed);
-
   const slo: Slo = {
     id: seededUuid(`${seed}-uuid`),
     windowDays: 30,
@@ -47,12 +47,17 @@ const generateMockSlo = (seed: string) => {
   startDate.setHours(0, 0, 0, 0);
 
   const data = [...new Array(slo.windowDays * 2)].map((_, i) => {
+    const date = addDays(i - slo.windowDays * 2);
+    const seededRandom = seedrandom(`${seed}-${date.getTime()}`);
     const rand = (min: number, max: number) =>
       min + seededRandom() * (max - min);
-    const rate = DAY_RATES[addDays(i - slo.windowDays * 2).getDay()];
+    const rate = DAY_RATES[date.getDay()];
     return [
       Math.floor(rand(1, 1.3) * rate),
-      Math.floor(rand(0, (0.3 * Math.sin(i / 3)) / 2 + 0.5) ** 4 * rate),
+      Math.floor(
+        rand(0, (0.3 * Math.sin(date.getTime() / DAY_MS / 3)) / 2 + 0.5) ** 4 *
+          rate
+      ),
     ];
   });
 
@@ -101,7 +106,7 @@ const generateMockSlo = (seed: string) => {
 
 export const generateMockSlos = (
   num = 10,
-  seed = "default"
+  seed = "sample-seed"
 ): { slos: Slos; data: SlosData } => {
   const slos: Slos = {};
   const data: SlosData = {};

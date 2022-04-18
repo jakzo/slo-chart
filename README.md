@@ -11,7 +11,7 @@ Example of an accessible chart.
 - Responsive design
   - Resizing the window will cause the chart to resize with no loss in quality
   - It is even responsive when JS is disabled!
-- Animation on load which respects `prefer-reduced-motion`
-  - If the user has this set then the bars and line will fade in instead of growing
-- <s>Dark theme</s>
-  - Actually I didn't get around to this 😅
+- Animation which respects `prefer-reduced-motion`
+  - If the user has this OS preference set then the bars and line will fade in instead of moving on load
+- Dark theme based on `prefers-color-scheme`
+  - Chooses between dark and light theme based on OS preference
