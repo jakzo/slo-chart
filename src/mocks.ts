@@ -28,12 +28,6 @@ const seededUuid = (seed: string): string => {
 };
 
 const generateMockSlo = (seed: string) => {
-  const addDays = (days: number, date: string | number | Date = new Date()) => {
-    const newDate = new Date(date);
-    newDate.setDate(newDate.getDate() + days);
-    return newDate;
-  };
-
   const DAY_RATES = [400, 1000, 1100, 1100, 1100, 1000, 400];
 
   const slo: Slo = {
@@ -46,17 +40,18 @@ const generateMockSlo = (seed: string) => {
   startDate.setDate(startDate.getDate() - slo.windowDays * 2 + 1);
   startDate.setHours(0, 0, 0, 0);
 
-  const data = [...new Array(slo.windowDays * 2)].map((_, i) => {
-    const date = addDays(i - slo.windowDays * 2);
-    const seededRandom = seedrandom(`${seed}-${date.getTime()}`);
+  const dataDate = new Date(startDate);
+  const data = [...new Array(slo.windowDays * 2)].map(() => {
+    const dateTime = dataDate.getTime();
+    const seededRandom = seedrandom(`${seed}-${dateTime}`);
+    const rate = DAY_RATES[dataDate.getDay()];
+    dataDate.setDate(dataDate.getDate() + 1);
     const rand = (min: number, max: number) =>
       min + seededRandom() * (max - min);
-    const rate = DAY_RATES[date.getDay()];
     return [
       Math.floor(rand(1, 1.3) * rate),
       Math.floor(
-        rand(0, (0.3 * Math.sin(date.getTime() / DAY_MS / 3)) / 2 + 0.5) ** 4 *
-          rate
+        rand(0, (0.3 * Math.sin(dateTime / DAY_MS / 3)) / 2 + 0.5) ** 4 * rate
       ),
     ];
   });
@@ -106,7 +101,7 @@ const generateMockSlo = (seed: string) => {
 
 export const generateMockSlos = (
   num = 10,
-  seed = "sample-seed"
+  seed = "testingseed"
 ): { slos: Slos; data: SlosData } => {
   const slos: Slos = {};
   const data: SlosData = {};
