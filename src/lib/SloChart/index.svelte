@@ -197,7 +197,7 @@ Bad events: {bad}"
             />
 
             <rect
-              class="fill-[#f66]/80"
+              class="fill-[#f66]/80 dark:fill-[#933]/80"
               x={barLeft}
               y={getValueY(minCountTick, maxCountTick, bad)}
               width={barWidth}
@@ -205,7 +205,7 @@ Bad events: {bad}"
             />
 
             <rect
-              class="fill-[#beb]/80"
+              class="fill-[#beb]/80 dark:fill-[#363]/80"
               x={barLeft}
               y={getValueY(minCountTick, maxCountTick, bad + good)}
               width={barWidth}
@@ -260,7 +260,7 @@ Bad events: {bad}"
     </div>
 
     <div
-      class="absolute left-0 ml-2 mt-1 text-red-400 uppercase"
+      class="absolute left-0 ml-2 mt-1 text-red-400 dark:text-red-100 uppercase"
       style:top="{getValueY(minBudgetTick, maxBudgetTick, 0)}%"
     >
       Budget Empty
